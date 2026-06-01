@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="es">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Frave Jr</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;font-family:'Segoe UI',system-ui,sans-serif}
+:root{--r:#7C3AED;--rd:#6D28D9;--rl:#F5F3FF;--bg:#f3f0ff;--tx:#1a1a2e;--mu:#6b7280;--br:#e5e7eb;--sh:0 2px 16px rgba(0,0,0,.07);--ra:14px}
+body{background:var(--bg);color:var(--tx);min-height:100vh}
+.mc-g{animation:mcb 2.6s ease-in-out infinite}
+.mc-e1{transform-origin:29px 33px;animation:mcbk 4.5s ease-in-out infinite}
+.mc-e2{transform-origin:51px 33px;animation:mcbk 4.5s ease-in-out .2s infinite}
+@keyframes mcb{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}
+@keyframes mcbk{0%,82%,100%{transform:scaleY(1)}89%{transform:scaleY(0.05)}}
+#hdr{background:var(--r);padding:0 20px;height:62px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:200;box-shadow:0 2px 10px rgba(0,0,0,.28)}
+.logo{display:flex;align-items:center;gap:10px;color:#fff}
+.logo-txt{font-size:1.35rem;font-weight:900;letter-spacing:-.5px}.logo-txt span{opacity:.5;font-weight:300}
+.hdr-r{display:flex;align-items:center;gap:10px}
+#clk{color:rgba(255,255,255,.8);font-size:.75rem}
+#sbtn{background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.35);color:#fff;padding:5px 13px;border-radius:20px;cursor:pointer;font-size:.76rem;font-weight:700;transition:all .2s}
+#sbtn:hover{background:rgba(255,255,255,.28)}#sbtn.on{background:#FFD700;color:#4a3500;border-color:#FFD700}
+#nav{background:#fff;display:flex;overflow-x:auto;border-bottom:1px solid var(--br);position:sticky;top:62px;z-index:199;scrollbar-width:none;box-shadow:0 1px 8px rgba(0,0,0,.05)}
+#nav::-webkit-scrollbar{display:none}
+.nb{flex-shrink:0;padding:13px 15px;border:none;background:none;color:var(--mu);font-size:.79rem;font-weight:700;cursor:pointer;border-bottom:3px solid transparent;transition:all .2s;white-space:nowrap}
+.nb:hover{color:var(--r)}.nb.on{color:var(--r);border-bottom-color:var(--r)}
+#main{max-width:1100px;margin:0 auto;padding:20px}
+.sec{display:none}.sec.on{display:block}
+.sh{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;flex-wrap:wrap;gap:10px}
+.sh h2{font-size:1.15rem;font-weight:900}.sh h2 em{color:var(--r);font-style:normal}
+.ba{background:var(--r);color:#fff;border:none;padding:8px 15px;border-radius:8px;cursor:pointer;font-size:.78rem;font-weight:700;transition:background .2s}
+.ba:hover{background:var(--rd)}
+.bsm{background:none;border:1px solid var(--br);padding:3px 9px;border-radius:6px;cursor:pointer;font-size:.7rem;color:var(--mu);transition:all .2s}
+.bsm:hover{border-color:var(--r);color:var(--r)}
+.bdl{background:none;border:none;color:#ccc;cursor:pointer;font-size:.72rem;padding:2px 5px;border-radius:4px;transition:color .2s}
+.bdl:hover{color:var(--r)}
+.card{background:#fff;border-radius:var(--ra);padding:20px;box-shadow:var(--sh);margin-bottom:14px}
+.g2{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:14px}
+.g3{display:grid;grid-template-columns:repeat(auto-fill,minmax(185px,1fr));gap:14px}
+.g4{display:grid;grid-template-columns:repeat(auto-fill,minmax(145px,1fr));gap:14px}
+.hero{background:linear-gradient(135deg,var(--r),#4c1d95);color:#fff;border-radius:var(--ra);padding:26px;margin-bottom:20px;position:relative;overflow:hidden}
+.hero::after{content:'Jr';position:absolute;right:-5px;bottom:-28px;font-size:9rem;font-weight:900;opacity:.07;line-height:1;pointer-events:none}
+.hero h1{font-size:1.2rem;font-weight:900;margin-bottom:4px}.hero p{font-size:.84rem;opacity:.85}
+.hdate{font-size:.73rem;opacity:.6;margin-top:5px}
+.hero-icons{display:flex;gap:12px;margin-top:14px;flex-wrap:wrap}
+.hico{font-size:1.55rem;animation:hflt 3s ease-in-out infinite;display:inline-block}
+@keyframes hflt{0%,100%{transform:translateY(0)}50%{transform:translateY(-7px)}}
+.sc{background:#fff;border-radius:var(--ra);padding:16px;box-shadow:var(--sh);border-left:4px solid var(--r)}
+.sc .n{font-size:1.9rem;font-weight:900;color:var(--r);line-height:1}.sc .l{font-size:.72rem;color:var(--mu);margin-top:3px}
+.tblw{overflow-x:auto}
+table{width:100%;border-collapse:collapse}
+thead th{background:var(--r);color:#fff;padding:9px 11px;text-align:left;font-size:.73rem;font-weight:700;white-space:nowrap}
+tbody td{padding:8px 11px;border-bottom:1px solid var(--br);font-size:.8rem;vertical-align:middle}
+tbody tr:hover td{background:var(--rl)}
+.gm{background:#fff;border-radius:var(--ra);padding:13px 15px;box-shadow:var(--sh);display:flex;align-items:center;gap:11px}
+.gm .ico{font-size:1.4rem}.gm .v{font-size:1.15rem;font-weight:900;color:var(--r);line-height:1}.gm .l{font-size:.68rem;color:var(--mu);margin-top:3px}
+.kpi-tabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:16px}
+.ktab{padding:7px 13px;border-radius:8px;border:1.5px solid var(--br);background:#fff;font-size:.76rem;font-weight:700;color:var(--mu);cursor:pointer;transition:all .2s;box-shadow:var(--sh)}
+.ktab:hover{border-color:var(--r);color:var(--r)}.ktab.on{background:var(--r);color:#fff;border-color:var(--r)}
+.kpi-day-lbl{font-size:.71rem;color:var(--mu);margin-bottom:10px;font-weight:600}
+.kv{font-weight:700;color:var(--tx)}.kz{color:#d1d5db}
+.nc{background:#fff;border-radius:var(--ra);padding:17px;box-shadow:var(--sh);margin-bottom:12px;border-left:4px solid var(--r);animation:sli .3s ease}
+@keyframes sli{from{opacity:0;transform:translateY(-8px)}to{opacity:1;transform:translateY(0)}}
+.nhd{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px;gap:12px}
+.nt{font-weight:900;font-size:.89rem}.nd{font-size:.69rem;color:var(--mu);white-space:nowrap;flex-shrink:0}
+.nb2{font-size:.82rem;color:#444;line-height:1.55;white-space:pre-line}
+.nc-feat{border-left-width:6px;background:linear-gradient(to right,#faf5ff,#fff);box-shadow:0 4px 20px rgba(124,58,237,.13)}
+.nov-hoy{background:var(--r);color:#fff;font-size:.58rem;font-weight:900;padding:2px 8px;border-radius:20px;letter-spacing:.4px;white-space:nowrap}
+.ec{background:#fff;border-radius:var(--ra);padding:12px 16px;box-shadow:var(--sh);display:flex;align-items:center;gap:13px;margin-bottom:10px;transition:transform .2s}
+.ec:hover{transform:translateX(4px)}
+.edt{min-width:49px;height:49px;background:var(--r);color:#fff;border-radius:10px;display:flex;flex-direction:column;align-items:center;justify-content:center;flex-shrink:0}
+.edt .day{font-size:1.1rem;font-weight:900;line-height:1}.edt .mon{font-size:.55rem;font-weight:700;text-transform:uppercase;opacity:.85}
+.ei h4{font-weight:800;font-size:.85rem}.ei p{font-size:.74rem;color:var(--mu);margin-top:2px}
+.tc{background:#fff;border-radius:var(--ra);padding:20px 12px;box-shadow:var(--sh);text-align:center;animation:flt 3s ease-in-out infinite}
+.tc:nth-child(2n){animation-delay:.4s}.tc:nth-child(3n){animation-delay:.8s}.tc:nth-child(4n){animation-delay:1.2s}.tc:nth-child(5n){animation-delay:.6s}
+@keyframes flt{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+.tc:hover{animation-play-state:paused;transform:translateY(-12px) scale(1.04)!important;box-shadow:0 16px 32px rgba(0,0,0,.15);transition:transform .3s,box-shadow .3s}
+.avr{width:74px;height:74px;border-radius:50%;margin:0 auto 10px;padding:3px;background:conic-gradient(var(--r) 0%,#a78bfa 35%,#ede9fe 50%,#a78bfa 65%,var(--r) 100%);animation:spinr 4s linear infinite}
+@keyframes spinr{to{transform:rotate(360deg)}}
+.avc{width:100%;height:100%;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.25rem;font-weight:900;color:#fff;animation:cspinr 4s linear infinite}
+@keyframes cspinr{to{transform:rotate(-360deg)}}
+.tcnm{font-weight:900;font-size:.84rem}.tcrl{font-size:.7rem;color:var(--mu);margin-top:2px}
+.tc-bday{font-size:.63rem;color:var(--r);font-weight:700;margin-top:4px}
+.supbar{background:#f3e8ff;border:1px solid #c4b5fd;border-radius:8px;padding:7px 14px;font-size:.75rem;color:#4c1d95;font-weight:700;margin-bottom:14px}
+.bandera-banner{background:linear-gradient(135deg,#74acdf 0%,#fff 50%,#74acdf 100%);border-radius:var(--ra);padding:14px 20px;margin-bottom:14px;display:flex;align-items:center;gap:12px;box-shadow:var(--sh)}
+.bandera-banner p{font-size:.84rem;font-weight:700;color:#003f7f}
+#mov{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:500;align-items:center;justify-content:center}
+#mov.on{display:flex}
+#mbox{background:#fff;border-radius:var(--ra);padding:24px;width:92%;max-width:460px;box-shadow:0 20px 60px rgba(0,0,0,.3);animation:mi .2s ease;max-height:90vh;overflow-y:auto}
+@keyframes mi{from{opacity:0;transform:scale(.94)}to{opacity:1;transform:scale(1)}}
+#mtit{font-size:.98rem;font-weight:900;margin-bottom:14px}
+.fi{margin-bottom:12px}.fi label{display:block;font-size:.72rem;font-weight:700;color:var(--mu);margin-bottom:3px}
+.fi input,.fi textarea,.fi select{width:100%;padding:9px 11px;border:1px solid var(--br);border-radius:8px;font-size:.84rem;font-family:inherit;transition:border-color .2s}
+.fi input:focus,.fi textarea:focus,.fi select:focus{outline:none;border-color:var(--r)}
+.fi textarea{resize:vertical;min-height:80px}
+.macts{display:flex;gap:10px;justify-content:flex-end;margin-top:14px}
+.bcnc{background:#f3f4f6;border:none;padding:8px 15px;border-radius:8px;cursor:pointer;font-weight:700;font-size:.81rem}
+.bsav{background:var(--r);color:#fff;border:none;padding:8px 15px;border-radius:8px;cursor:pointer;font-weight:700;font-size:.81rem}
+.bsav:hover{background:var(--rd)}
+#lmod{display:none;position:fixed;inset:0;background:rgba(20,0,60,.65);backdrop-filter:blur(4px);z-index:600;align-items:center;justify-content:center}
+#lmod.on{display:flex}
+#lbox{background:#fff;border-radius:22px;padding:34px 26px 26px;width:92%;max-width:350px;text-align:center;box-shadow:0 28px 72px rgba(0,0,0,.28);animation:mi .25s ease}
+#lbox h2{font-size:1.2rem;font-weight:900;color:var(--tx);margin:10px 0 3px}
+#lbox .lsub{font-size:.77rem;color:var(--mu);margin-bottom:20px}
+.lbtn{width:100%;background:var(--r);color:#fff;border:none;padding:12px;border-radius:10px;font-size:.87rem;font-weight:700;cursor:pointer;margin-top:4px;transition:background .2s}
+.lbtn:hover{background:var(--rd)}
+.lskip{margin-top:13px;font-size:.75rem;color:var(--mu);cursor:pointer;background:none;border:none;text-decoration:underline;display:block;width:100%}
+.lskip:hover{color:var(--r)}
+.lerr{color:#b91c1c;font-size:.72rem;margin-top:6px;min-height:16px;font-weight:600}
+#toasts{position:fixed;top:72px;right:14px;z-index:999;width:265px}
+.tst{background:#2e1065;color:#fff;padding:10px 14px;border-radius:10px;font-size:.8rem;font-weight:600;box-shadow:0 8px 24px rgba(0,0,0,.3);margin-top:8px;animation:tsti .3s ease,tsto .3s ease 3.7s forwards;display:flex;align-items:center;gap:8px}
+@keyframes tsti{from{opacity:0;transform:translateX(40px)}to{opacity:1;transform:translateX(0)}}
+@keyframes tsto{to{opacity:0;transform:translateX(40px)}}
+</style>
+</head>
+<body>
+<div id="toasts"></div>
+
+<div id="lmod">
+  <div id="lbox">
+    <svg width="88" height="66" viewBox="0 0 80 62" xmlns="http://www.w3.org/2000/svg">
+      <g class="mc-g">
+        <path d="M 15 20 Q 40 -2 65 20" stroke="#a78bfa" stroke-width="5.5" fill="none" stroke-linecap="round"/>
+        <ellipse cx="13" cy="23" rx="7" ry="8.5" fill="#7C3AED"/><ellipse cx="13" cy="23" rx="4.5" ry="5.5" fill="#4c1d95"/>
+        <ellipse cx="67" cy="23" rx="7" ry="8.5" fill="#7C3AED"/><ellipse cx="67" cy="23" rx="4.5" ry="5.5" fill="#4c1d95"/>
+        <rect x="11" y="12" width="58" height="38" rx="4" fill="#2e1065"/>
+        <rect x="15" y="16" width="50" height="30" rx="2.5" fill="#0d0025"/>
+        <circle cx="40" cy="14" r="1.5" fill="#6d28d9"/>
+        <text x="40" y="24" text-anchor="middle" fill="#8b5cf6" font-size="6" font-weight="900" font-family="Segoe UI,Arial,sans-serif">Frave Jr</text>
+        <g class="mc-e1"><ellipse cx="29" cy="33" rx="6" ry="6" fill="white" opacity=".92"/><circle cx="30" cy="33" r="3.5" fill="#7C3AED"/><circle cx="31.2" cy="31.5" r="1.2" fill="white"/></g>
+        <g class="mc-e2"><ellipse cx="51" cy="33" rx="6" ry="6" fill="white" opacity=".92"/><circle cx="52" cy="33" r="3.5" fill="#7C3AED"/><circle cx="53.2" cy="31.5" r="1.2" fill="white"/></g>
+        <rect x="8" y="50" width="64" height="10" rx="3.5" fill="#4c1d95"/>
+        <rect x="11" y="48" width="58" height="4" rx="1.5" fill="#3730a3"/>
+        <rect x="13" y="52.5" width="54" height="1.5" rx=".75" fill="#6d28d9" opacity=".6"/>
+        <rect x="13" y="55.5" width="54" height="1.5" rx=".75" fill="#6d28d9" opacity=".6"/>
+        <rect x="28" y="52" width="24" height="7" rx="2" fill="#5b21b6"/>
+      </g>
+    </svg>
+    <h2>Frave Jr</h2>
+    <p class="lsub">Portal del Equipo · Frávega ATC</p>
+    <div class="fi" style="text-align:left"><label>Contraseña de acceso</label><input type="password" id="lpass" placeholder="••••••••" onkeydown="if(event.key==='Enter')doLogin()"></div>
+    <p class="lerr" id="lerr"></p>
+    <button class="lbtn" onclick="doLogin()">Ingresar →</button>
+    <button class="lskip" onclick="closeLmod()">Continuar como espectador</button>
+  </div>
+</div>
+
+<div id="mov" onclick="if(event.target===this)cmod()">
+  <div id="mbox">
+    <div id="mtit"></div>
+    <div id="mbdy"></div>
+    <div class="macts"><button class="bcnc" onclick="cmod()">Cancelar</button><button class="bsav" onclick="smod()">Guardar</button></div>
+  </div>
+</div>
+
+<header id="hdr">
+  <div class="logo">
+    <svg width="46" height="36" viewBox="0 0 80 62" xmlns="http://www.w3.org/2000/svg" style="flex-shrink:0">
+      <g class="mc-g">
+        <path d="M 15 20 Q 40 -2 65 20" stroke="#a78bfa" stroke-width="5.5" fill="none" stroke-linecap="round"/>
+        <ellipse cx="13" cy="23" rx="7" ry="8.5" fill="#7C3AED"/><ellipse cx="13" cy="23" rx="4.5" ry="5.5" fill="#4c1d95"/>
+        <ellipse cx="67" cy="23" rx="7" ry="8.5" fill="#7C3AED"/><ellipse cx="67" cy="23" rx="4.5" ry="5.5" fill="#4c1d95"/>
+        <rect x="11" y="12" width="58" height="38" rx="4" fill="#2e1065"/>
+        <rect x="15" y="16" width="50" height="30" rx="2.5" fill="#0d0025"/>
+        <circle cx="40" cy="14" r="1.5" fill="#6d28d9"/>
+        <text x="40" y="24" text-anchor="middle" fill="#8b5cf6" font-size="6" font-weight="900" font-family="Segoe UI,Arial,sans-serif">Frave Jr</text>
+        <g class="mc-e1"><ellipse cx="29" cy="33" rx="6" ry="6" fill="white" opacity=".92"/><circle cx="30" cy="33" r="3.5" fill="#7C3AED"/><circle cx="31.2" cy="31.5" r="1.2" fill="white"/></g>
+        <g class="mc-e2"><ellipse cx="51" cy="33" rx="6" ry="6" fill="white" opacity=".92"/><circle cx="52" cy="33" r="3.5" fill="#7C3AED"/><circle cx="53.2" cy="31.5" r="1.2" fill="white"/></g>
+        <rect x="8" y="50" width="64" height="10" rx="3.5" fill="#4c1d95"/>
+        <rect x="11" y="48" width="58" height="4" rx="1.5" fill="#3730a3"/>
+        <rect x="13" y="52.5" width="54" height="1.5" rx=".75" fill="#6d28d9" opacity=".6"/>
+        <rect x="13" y="55.5" width="54" height="1.5" rx=".75" fill="#6d28d9" opacity=".6"/>
+        <rect x="28" y="52" width="24" height="7" rx="2" fill="#5b21b6"/>
+      </g>
+    </svg>
+    <div class="logo-txt">Frave<span>Jr</span></div>
+  </div>
+  <div class="hdr-r"><span id="clk"></span><button id="sbtn" onclick="tSup()">🔐 Acceder</button></div>
+</header>
+
+<nav id="nav">
+  <button class="nb on" onclick="go('inicio',this)">🏠 Inicio</button>
+  <button class="nb" onclick="go('kpis',this)">📊 Métricas</button>
+  <button class="nb" onclick="go('ev',this)">📅 Eventos</button>
+  <button class="nb" onclick="go('eq',this)">👥 El Equipo</button>
+</nav>
+
+<div id="main">
+  <div id="s-inicio" class="sec on"></div>
+  <div id="s-kpis" class="sec"></div>
+  <div id="s-ev" class="sec"></div>
+  <div id="s-eq" class="sec"></div>
+</div>
+
+<script>
+const PASS='frave2024';
+const COLS=['#7C3AED','#2196F3','#4CAF50','#FF9800','#E91E63','#00BCD4','#FF5722','#795548','#E31E24','#607D8B'];
+const MES=['Ene','Feb','Mar','Abr','May','Jun','Jul','Ago','Sep','Oct','Nov','Dic'];
+
+const SEMANA=[
+  {id:'d26',short:'Mar 26',label:'Martes 26 de Mayo'},
+  {id:'d27',short:'Mié 27',label:'Miércoles 27 de Mayo'},
+  {id:'d28',short:'Jue 28',label:'Jueves 28 de Mayo'},
+  {id:'d29',short:'Vie 29',label:'Viernes 29 de Mayo'},
+  {id:'d30',short:'Sáb 30',label:'Sábado 30 de Mayo'},
+];
+
+// Operadores (roster oficial + asesores con KPI). bday DD/MM, leg=legajo
+const OPS=[
+  {id:1,nombre:'Agustin Alfonso',rol:'Operador',ci:0,bday:'09/03',leg:'13788'},
+  {id:2,nombre:'Aldana Maidana',rol:'Operadora',ci:1,bday:'05/08',leg:'12088'},
+  {id:3,nombre:'Cecilia Antúnez',rol:'Operadora',ci:2,bday:'30/06',leg:'16210'},
+  {id:4,nombre:'Cynthia Menendez',rol:'Operadora',ci:3,bday:'04/08',leg:'12449'},
+  {id:5,nombre:'Cynthia Velazquez',rol:'Operadora',ci:4,bday:'15/03',leg:'11217'},
+  {id:6,nombre:'Cristian Ariel Hernandez',rol:'Operador',ci:5,bday:'11/12',leg:'13450'},
+  {id:7,nombre:'Deborah Muñoz',rol:'Operadora',ci:6,bday:'26/03',leg:'12537'},
+  {id:8,nombre:'Laura Gonzalez',rol:'Operadora',ci:7,bday:'19/09',leg:''},
+  {id:9,nombre:'Lucía Jara',rol:'Operadora',ci:8,bday:'07/06',leg:'16208'},
+  {id:10,nombre:'Marcela Huacaña',rol:'Operadora',ci:9,bday:'25/05',leg:'10591'},
+  {id:11,nombre:'Marcos Jorge',rol:'Operador',ci:0,bday:'17/06',leg:'13765'},
+  {id:12,nombre:'Maria Angelica Ballesteros',rol:'Operadora',ci:1,bday:'08/05',leg:'13387'},
+  {id:13,nombre:'Mariana Blasco',rol:'Operadora',ci:2,bday:'22/03',leg:'13109'},
+  {id:14,nombre:'Marina Las Heras',rol:'Operadora',ci:3,bday:'24/08',leg:'13421'},
+  {id:15,nombre:'Melissa Falcon',rol:'Operadora',ci:4,bday:'03/08',leg:'11219'},
+  {id:16,nombre:'Pamela Guiroy',rol:'Operadora',ci:5,bday:'28/03',leg:'11937'},
+  {id:17,nombre:'Rocio Benitez Fuentes',rol:'Operadora',ci:6,bday:'08/08',leg:''},
+  {id:18,nombre:'Romina Guglielmi',rol:'Operadora',ci:7,bday:'23/05',leg:'12081'},
+  {id:19,nombre:'Silvana Destefano',rol:'Operadora',ci:8,bday:'16/09',leg:''},
+  {id:20,nombre:'Valeria Gonzalez',rol:'Operadora',ci:9,bday:'16/02',leg:'11591'},
+  {id:21,nombre:'Victoria Iturria',rol:'Operadora',ci:0,bday:'15/08',leg:'10882'},
+  {id:22,nombre:'Viviana Molina',rol:'Operadora',ci:1,bday:'15/01',leg:'12920'},
+  {id:23,nombre:'Yanina Coronel',rol:'Operadora',ci:2,bday:'06/05',leg:'11510'},
+  {id:24,nombre:'Sonia Arellano',rol:'Operadora',ci:3,bday:'',leg:'11561'},
+  {id:25,nombre:'Cintia Milanes',rol:'Operadora',ci:4,bday:'',leg:'11952'},
+];
+
+// KPI diario real: [opId, dia, backoffice/supervisor, llamadas]
+const KD=[
+  [1,'d26','1:02:49',45],[1,'d27','1:16:06',28],[1,'d28','1:13:33',32],[1,'d29','1:09:23',31],
+  [2,'d26','0:12:24',61],[2,'d27','0:09:30',62],[2,'d28','0:25:25',58],[2,'d29','0:17:18',82],
+  [3,'d26','0:09:48',54],[3,'d27','0:17:26',52],[3,'d28','0:10:58',42],[3,'d29','0:22:17',50],
+  [4,'d26','0:14:01',84],[4,'d27','0:00:00',89],[4,'d28','0:09:36',72],[4,'d29','0:07:59',77],[4,'d30','0:02:33',45],
+  [5,'d26','0:29:46',74],[5,'d27','0:24:54',73],[5,'d28','0:17:41',66],[5,'d29','0:25:52',73],
+  [6,'d26','0:07:46',57],[6,'d27','0:10:41',49],[6,'d28','0:09:07',61],[6,'d29','0:14:38',55],
+  [7,'d26','0:22:53',57],[7,'d27','0:30:03',52],[7,'d28','0:31:31',59],[7,'d29','0:28:51',54],
+  [9,'d26','0:11:57',41],[9,'d27','0:21:07',45],[9,'d28','0:21:46',45],[9,'d29','0:15:01',46],
+  [10,'d27','0:18:48',71],[10,'d28','0:20:46',64],[10,'d29','0:22:56',69],
+  [11,'d26','0:19:17',39],[11,'d27','0:12:46',39],[11,'d28','0:16:56',42],[11,'d29','0:19:38',44],[11,'d30','0:00:00',0],
+  [12,'d26','0:14:58',37],[12,'d27','0:21:38',38],[12,'d28','0:25:15',38],[12,'d29','0:20:53',32],[12,'d30','0:12:04',26],
+  [13,'d26','0:14:07',45],[13,'d27','0:22:32',44],[13,'d28','0:15:02',48],[13,'d29','0:16:54',44],[13,'d30','0:13:11',34],
+  [14,'d26','0:10:46',56],[14,'d27','0:06:36',48],[14,'d28','0:06:28',44],[14,'d29','0:23:48',46],[14,'d30','0:04:27',30],
+  [15,'d26','0:22:50',45],[15,'d27','0:24:56',49],[15,'d28','0:21:12',49],[15,'d29','0:28:44',50],
+  [16,'d26','0:04:27',104],[16,'d27','0:06:44',99],[16,'d28','0:13:42',93],[16,'d29','0:07:44',74],
+  [18,'d27','0:11:40',54],[18,'d28','0:08:08',55],[18,'d29','0:08:12',63],[18,'d30','0:03:38',31],
+  [20,'d26','0:40:29',44],[20,'d27','0:36:03',50],[20,'d28','0:39:45',47],[20,'d29','0:45:15',43],
+  [21,'d26','0:34:46',28],[21,'d27','0:36:46',32],[21,'d28','0:27:38',30],[21,'d29','0:37:07',30],
+  [22,'d26','0:23:19',61],[22,'d27','0:25:21',65],[22,'d28','0:25:55',64],[22,'d29','0:30:18',60],
+  [23,'d26','0:07:29',28],[23,'d27','0:09:39',27],[23,'d28','0:12:07',20],[23,'d29','0:10:59',22],[23,'d30','0:10:46',35],
+  [24,'d26','0:01:56',42],
+  [25,'d26','0:25:31',27],[25,'d27','0:26:18',31],[25,'d28','0:16:31',31],[25,'d29','0:29:53',25],
+];
+
+// Time Out semanal por operador (total fichas sin tipificar)
+const TO_DEF={1:14,2:3,3:4,4:38,5:23,6:15,7:1,8:0,9:4,10:0,11:0,12:8,13:44,14:2,15:8,16:0,17:0,18:16,19:0,20:37,21:17,22:9,23:11,24:1,25:3};
+
+const DEF={
+  novs:[
+    {id:1,titulo:'📣 ¡Arrancamos junio!',cont:'Comenzamos un nuevo mes. Ya están cargados los KPIs de la última semana de mayo (26 al 30). ¡A seguir con todo el equipo!',fecha:'01/06/2026'},
+    {id:2,titulo:'📊 KPIs semana 26-30 de mayo disponibles',cont:'El lunes 25 fue feriado (Día de la Revolución de Mayo). Los indicadores van del martes 26 al sábado 30. Consultá tu desempeño en la solapa KPIs.',fecha:'31/05/2026'},
+  ],
+  evs:[{id:1,titulo:'🇦🇷 Día de la Bandera',desc:'Feriado nacional — Sin actividad',fecha:'2026-06-20'}],
+  k2:KD.map((r,i)=>({id:i+1,opId:r[0],dia:r[1],bo:r[2],ll:r[3]})),
+  to:{...TO_DEF},
+};
+
+let sup=false,mAct=null,mId=null,lastN=0,selDia='d26';
+let D={novs:[],evs:[],k2:[],to:{}};
+
+async function load(){
+  const dfs={novs:DEF.novs,evs:DEF.evs,k2:DEF.k2,to:DEF.to};
+  for(const k of ['novs','evs','k2','to']){
+    try{
+      const r=await window.storage.get('fjv4:'+k,true);
+      const val=JSON.parse(r.value);
+      const stale=(k==='k2'&&(!Array.isArray(val)||val.length===0))||(k==='to'&&(typeof val!=='object'||Array.isArray(val)||Object.keys(val).length<10));
+      if(stale){D[k]=JSON.parse(JSON.stringify(dfs[k]));window.storage.set('fjv4:'+k,JSON.stringify(dfs[k]),true);}
+      else D[k]=val;
+    }catch{
+      D[k]=JSON.parse(JSON.stringify(dfs[k]));
+      window.storage.set('fjv4:'+k,JSON.stringify(dfs[k]),true);
+    }
+  }
+  lastN=D.novs.length;
+}
+async function sv(k){try{await window.storage.set('fjv4:'+k,JSON.stringify(D[k]),true);}catch(e){console.warn('Storage:',e);}}
+
+function chime(){
+  try{
+    const ctx=new(window.AudioContext||window.webkitAudioContext)();
+    [[880,.05],[1100,.2],[1320,.35]].forEach(([f,d])=>{
+      const o=ctx.createOscillator(),g=ctx.createGain();
+      o.connect(g);g.connect(ctx.destination);o.type='sine';o.frequency.value=f;
+      const t=ctx.currentTime+d;
+      g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(.2,t+.05);g.gain.exponentialRampToValueAtTime(.001,t+.55);
+      o.start(t);o.stop(t+.6);
+    });
+  }catch{}
+}
+function toast(msg,ico='📣'){
+  const el=document.createElement('div');el.className='tst';el.innerHTML=ico+' '+msg;
+  document.getElementById('toasts').appendChild(el);setTimeout(()=>el.remove(),4300);
+}
+function ini(n){return n.split(' ').map(w=>w[0]).join('').toUpperCase().slice(0,2);}
+function col(n){let h=0;for(let c of n)h=(h*31+c.charCodeAt(0))%COLS.length;return COLS[h];}
+function gv(id){const el=document.getElementById(id);return el?el.value.trim():'';}
+function t2s(t){if(!t)return 0;const p=t.split(':').map(Number);return p.length===3?p[0]*3600+p[1]*60+p[2]:p[0]*60+p[1];}
+function s2t(s){const h=Math.floor(s/3600),m=Math.floor((s%3600)/60),x=Math.round(s%60);return h>0?`${h}:${String(m).padStart(2,'0')}:${String(x).padStart(2,'0')}`:`${m}:${String(x).padStart(2,'0')}`;}
+
+function tick(){
+  const now=new Date();
+  document.getElementById('clk').textContent=now.toLocaleDateString('es-AR',{weekday:'short',day:'numeric',month:'short'})+' · '+now.toLocaleTimeString('es-AR',{hour:'2-digit',minute:'2-digit'});
+}
+function go(sec,btn){
+  document.querySelectorAll('.sec').forEach(s=>s.classList.remove('on'));
+  document.querySelectorAll('.nb').forEach(b=>b.classList.remove('on'));
+  document.getElementById('s-'+sec).classList.add('on');btn.classList.add('on');render(sec);
+}
+function tSup(){if(sup){sup=false;reApply();toast('Sesión cerrada','🔒');}else openLmod();}
+function openLmod(){document.getElementById('lpass').value='';document.getElementById('lerr').textContent='';document.getElementById('lmod').classList.add('on');setTimeout(()=>document.getElementById('lpass').focus(),120);}
+function closeLmod(){document.getElementById('lmod').classList.remove('on');}
+function doLogin(){const p=document.getElementById('lpass').value;if(p===PASS){sup=true;closeLmod();reApply();toast('Acceso concedido ✓','🔓');}else{document.getElementById('lerr').textContent='Contraseña incorrecta.';document.getElementById('lpass').value='';document.getElementById('lpass').focus();}}
+function reApply(){const btn=document.getElementById('sbtn');btn.textContent=sup?'🔓 Editor':'🔐 Acceder';btn.className=sup?'on':'';const ac=document.querySelector('.sec.on');if(ac)render(ac.id.replace('s-',''));}
+function render(s){({inicio:rIn,kpis:rKpi,ev:rEv,eq:rEq}[s]||function(){})();}
+function isBandera(){const n=new Date();return n.getMonth()===5&&n.getDate()===20;}
+
+// Cumpleaños desde OPS
+function bdays(){return OPS.filter(o=>o.bday).map(o=>({nombre:o.nombre,fecha:o.bday}));}
+function dUntil(fs){const [d,m]=fs.split('/').map(Number);const now=new Date();now.setHours(0,0,0,0);const bd=new Date(now.getFullYear(),m-1,d);if(bd<now)bd.setFullYear(now.getFullYear()+1);return Math.ceil((bd-now)/86400000);}
+function bdayFecha(fs){const [d,m]=fs.split('/').map(Number);const now=new Date();now.setHours(0,0,0,0);const bd=new Date(now.getFullYear(),m-1,d);if(bd<now)bd.setFullYear(now.getFullYear()+1);return `${bd.getFullYear()}-${String(m).padStart(2,'0')}-${String(d).padStart(2,'0')}`;}
+function proxCumple(){const l=bdays().sort((a,b)=>dUntil(a.fecha)-dUntil(b.fecha));if(!l.length)return '—';const c=l[0],d=dUntil(c.fecha);return d===0?'¡Hoy! 🎂':`${c.nombre.split(' ')[0]} (${d}d)`;}
+
+// ——— INICIO ———
+function rIn(){
+  const now=new Date();
+  const ds=now.toLocaleDateString('es-AR',{weekday:'long',day:'numeric',month:'long',year:'numeric'});
+  const bandera=isBandera()?`<div class="bandera-banner"><span style="font-size:2rem">🇦🇷</span><p>¡Hoy es el Día de la Bandera! Feliz día a todo el equipo 💙🤍💙</p></div>`:'';
+  const bdList=bdays().sort((a,b)=>dUntil(a.fecha)-dUntil(b.fecha));
+  const bd=bdList[0];
+  const bdDias=bd?dUntil(bd.fecha):null;
+  const bdNombre=bd?(bdDias===0?'🎉 ¡Hoy!':bd.nombre):'—';
+  const bdLabel=bd?(bdDias===0?`Cumpleaños de ${bd.nombre}`:`🎂 en ${bdDias} día${bdDias===1?'':'s'}`):'🎂 Próximo cumpleaños';
+  const hoy=`${String(now.getDate()).padStart(2,'0')}/${String(now.getMonth()+1).padStart(2,'0')}/${now.getFullYear()}`;
+  const tag=(n)=>n.fecha===hoy?'<span class="nov-hoy">HOY</span>':'';
+  const del=(n)=>sup?`<button class="bdl" onclick="dNov(${n.id})">✕</button>`:'';
+  const addBtn=sup?'<button class="ba" style="font-size:.76rem;padding:6px 13px" onclick="omod(\'nov\')">+ Nueva</button>':'';
+  const mk=(n,f=false)=>`<div class="nc${f?' nc-feat':''}"><div class="nhd"><div class="nt">${n.titulo}</div><div style="display:flex;align-items:center;gap:6px">${tag(n)}<div class="nd">${n.fecha}</div>${del(n)}</div></div><div class="nb2">${n.cont}</div></div>`;
+  let novsHtml='<p style="color:var(--mu);font-size:.84rem;padding:4px 0">Sin novedades publicadas aún.</p>';
+  if(D.novs.length){
+    const [first,...rest]=D.novs;
+    novsHtml=mk(first,true)+(rest.length?`<div style="font-size:.69rem;font-weight:800;color:var(--mu);text-transform:uppercase;letter-spacing:.6px;margin:16px 0 8px">Anteriores</div>${rest.map(n=>mk(n)).join('')}`:'');
+  }
+  document.getElementById('s-inicio').innerHTML=`
+    <div class="hero">
+      <h1>👋 Bienvenido al portal del equipo</h1>
+      <p>Frave Jr — Atención al Cliente · Frávega SAC</p>
+      <div class="hdate">${ds}</div>
+      <div class="hero-icons">
+        <span class="hico" style="animation-delay:0s">💻</span><span class="hico" style="animation-delay:.35s">📺</span>
+        <span class="hico" style="animation-delay:.7s">🎧</span><span class="hico" style="animation-delay:1.05s">📱</span>
+        <span class="hico" style="animation-delay:1.4s">🖨️</span><span class="hico" style="animation-delay:1.75s">❄️</span>
+        <span class="hico" style="animation-delay:2.1s">🖥️</span>
+      </div>
+    </div>${bandera}
+    <div class="g4" style="margin-bottom:20px">
+      <div class="sc"><div class="n">${OPS.length}</div><div class="l">👥 Operadores</div></div>
+      <div class="sc"><div class="n">${D.novs.length}</div><div class="l">📢 Novedades</div></div>
+      <div class="sc"><div class="n">${D.evs.length}</div><div class="l">📅 Eventos</div></div>
+      <div class="sc" style="overflow:hidden"><div class="n" style="font-size:.78rem;line-height:1.4;word-break:break-word">${bdNombre}</div><div class="l">${bdLabel}</div></div>
+    </div>
+    <div class="sh" style="margin-bottom:10px">
+      <h3 style="font-weight:900;font-size:.95rem">📢 Novedades del equipo</h3>
+      ${addBtn}
+    </div>
+    ${novsHtml}
+  `;
+}
+
+// ——— KPI ———
+function getK(opId,dia){return D.k2.find(k=>k.opId===opId&&k.dia===dia)||null;}
+function setDia(id){selDia=id;document.querySelectorAll('.ktab').forEach(b=>b.classList.toggle('on',b.dataset.dia===id));renderKpiTable();}
+
+function rKpi(){
+  const sb=sup?'<div class="supbar">✏️ Modo Supervisor — hacé clic en ✏️ para editar cada métrica. El Time Out (semanal) se edita en la pestaña Resumen.</div>':'';
+  const tabs=SEMANA.map(d=>`<button class="ktab${d.id===selDia?' on':''}" data-dia="${d.id}" onclick="setDia('${d.id}')">${d.short}</button>`).join('')+
+    `<button class="ktab${selDia==='res'?' on':''}" data-dia="res" onclick="setDia('res')">📊 Resumen</button>`;
+  document.getElementById('s-kpis').innerHTML=`
+    <div class="sh"><h2>📊 <em>KPIs</em> — Semana 26-30 Mayo 2026</h2></div>${sb}
+    <div class="kpi-tabs">${tabs}</div>
+    <div id="kpi-body"></div>`;
+  renderKpiTable();
+}
+
+function renderKpiTable(){
+  const el=document.getElementById('kpi-body');if(!el)return;
+  if(selDia==='res'){renderResumen(el);return;}
+  const dia=SEMANA.find(d=>d.id===selDia);
+  const dayRecs=D.k2.filter(k=>k.dia===selDia);
+  const totLL=dayRecs.reduce((s,k)=>s+(k.ll||0),0);
+  const avgBO=dayRecs.length?s2t(Math.round(dayRecs.reduce((s,k)=>s+t2s(k.bo),0)/dayRecs.length)):'—';
+  const edTh=sup?'<th></th>':'';
+  const rows=OPS.map(op=>{
+    const k=getK(op.id,selDia);const has=k!==null;const cl=has?'kv':'kz';
+    const toVal=D.to[op.id]!==undefined?D.to[op.id]:'—';
+    const toStyle=typeof D.to[op.id]==='number'&&D.to[op.id]>20?'style="color:#dc2626;font-weight:900"':'';
+    const ed=sup?`<td><button class="bsm" onclick="omod('kpi-d',{opId:${op.id},dia:'${selDia}'})">✏️</button></td>`:'';
+    return `<tr><td style="white-space:nowrap;font-weight:700">${op.nombre}</td><td class="${cl}">${has?k.ll:'—'}</td><td class="${cl}">${has?k.bo:'—'}</td><td ${toStyle}>${toVal}</td>${ed}</tr>`;
+  }).join('');
+  el.innerHTML=`
+    <div class="kpi-day-lbl">📅 ${dia.label} — ${dayRecs.length} de ${OPS.length} operadores con datos</div>
+    <div class="g3" style="margin-bottom:14px">
+      <div class="gm"><div class="ico">📞</div><div><div class="v">${totLL}</div><div class="l">Llamadas conectadas (total)</div></div></div>
+      <div class="gm"><div class="ico">⏱️</div><div><div class="v">${avgBO}</div><div class="l">Prom. Back Office/Sup</div></div></div>
+      <div class="gm"><div class="ico">✅</div><div><div class="v">${dayRecs.length}/${OPS.length}</div><div class="l">Operadores cargados</div></div></div>
+    </div>
+    <div class="card" style="padding:0">
+      <div class="tblw"><table>
+        <thead><tr><th>Operador</th><th>📞 Llamadas</th><th>⏱ Back Office / Supervisor</th><th>⚠️ Time Out (sem.)</th>${edTh}</tr></thead>
+        <tbody>${rows}</tbody>
+      </table></div>
+    </div>`;
+}
+
+function renderResumen(el){
+  const edTh=sup?'<th></th>':'';
+  const rows=OPS.map(op=>{
+    let totLL=0,boSec=0,dias=0;
+    SEMANA.forEach(d=>{const k=getK(op.id,d.id);if(k){totLL+=(k.ll||0);boSec+=t2s(k.bo);dias++;}});
+    const to=D.to[op.id]!==undefined?D.to[op.id]:'—';
+    const cl=dias>0?'kv':'kz';
+    const avgBO=dias>0?s2t(Math.round(boSec/dias)):'—';
+    const ed=sup?`<td><button class="bsm" onclick="omod('to-e',${op.id})">✏️ TO</button></td>`:'';
+    return `<tr><td style="white-space:nowrap;font-weight:700">${op.nombre}</td><td class="${cl}">${dias>0?totLL:'—'}</td><td class="${cl}">${avgBO}</td><td class="${dias>0||to!=='—'?'kv':'kz'}" style="color:${(typeof to==='number'&&to>20)?'#dc2626':''}">${to}</td>${ed}</tr>`;
+  }).join('');
+  const totLL=D.k2.reduce((s,k)=>s+(k.ll||0),0);
+  const totTO=Object.values(D.to).reduce((s,v)=>s+(v||0),0);
+  el.innerHTML=`
+    <div class="kpi-day-lbl">📊 Resumen consolidado — Semana 26 al 30 de Mayo</div>
+    <div class="g3" style="margin-bottom:14px">
+      <div class="gm"><div class="ico">📞</div><div><div class="v">${totLL}</div><div class="l">Llamadas totales semana</div></div></div>
+      <div class="gm"><div class="ico">⚠️</div><div><div class="v">${totTO}</div><div class="l">Time Out total semana</div></div></div>
+      <div class="gm"><div class="ico">👥</div><div><div class="v">${OPS.length}</div><div class="l">Operadores</div></div></div>
+    </div>
+    <div class="card" style="padding:0">
+      <div class="tblw"><table>
+        <thead><tr><th>Operador</th><th>📞 Total Llamadas</th><th>⏱ Prom. BO/Sup</th><th>⚠️ Time Out Sem.</th>${edTh}</tr></thead>
+        <tbody>${rows}</tbody>
+      </table></div>
+    </div>`;
+}
+
+// ——— NOVEDADES ———
+function rNov(){
+  const sb=sup?'<div class="supbar">✏️ Modo Supervisor — publicá comunicados al instante</div>':'';
+  const addBtn=sup?'<button class="ba" onclick="omod(\'nov\')">+ Nueva novedad</button>':'';
+  const now=new Date();
+  const hoy=`${String(now.getDate()).padStart(2,'0')}/${String(now.getMonth()+1).padStart(2,'0')}/${now.getFullYear()}`;
+  const tag=(n)=>n.fecha===hoy?'<span class="nov-hoy">HOY</span>':'';
+  const del=(n)=>sup?`<button class="bdl" onclick="dNov(${n.id})">✕</button>`:'';
+  const mk=(n,f=false)=>`<div class="nc${f?' nc-feat':''}"><div class="nhd"><div class="nt">${n.titulo}</div><div style="display:flex;align-items:center;gap:6px">${tag(n)}<div class="nd">${n.fecha}</div>${del(n)}</div></div><div class="nb2">${n.cont}</div></div>`;
+  if(!D.novs.length){document.getElementById('s-nov').innerHTML=`<div class="sh"><h2>📢 <em>Novedades</em></h2>${addBtn}</div>${sb}<div class="card" style="text-align:center;padding:32px;color:var(--mu)">📋 Sin novedades aún.</div>`;return;}
+  const [first,...rest]=D.novs;
+  document.getElementById('s-nov').innerHTML=`
+    <div class="sh"><h2>📢 <em>Novedades</em></h2>${addBtn}</div>${sb}
+    <div style="font-size:.7rem;font-weight:800;color:var(--mu);text-transform:uppercase;letter-spacing:.6px;margin-bottom:8px">📌 Última actualización</div>
+    ${mk(first,true)}
+    ${rest.length?`<div style="font-size:.7rem;font-weight:800;color:var(--mu);text-transform:uppercase;letter-spacing:.6px;margin:18px 0 8px">Anteriores</div>${rest.map(n=>mk(n)).join('')}`:''}`;
+}
+
+// ——— EVENTOS ———
+function rEv(){
+  const sb=sup?'<div class="supbar">✏️ Modo Supervisor activo</div>':'';
+  const addBtn=sup?'<button class="ba" onclick="omod(\'ev\')">+ Agregar evento</button>':'';
+  const bdayEvs=bdays().filter(c=>dUntil(c.fecha)<=60).map(c=>{const d=dUntil(c.fecha);return {id:'b'+c.nombre,titulo:`🎂 Cumpleaños — ${c.nombre}`,desc:d===0?'¡Hoy es su día! 🎉':`En ${d} día${d===1?'':'s'}`,fecha:bdayFecha(c.fecha),isBday:true};});
+  const allEvs=[...D.evs,...bdayEvs].sort((a,b)=>a.fecha.localeCompare(b.fecha));
+  const list=allEvs.map(ev=>{
+    const d=new Date(ev.fecha+'T12:00:00');
+    const del=(!ev.isBday&&sup)?`<button class="bdl" onclick="dEv(${ev.id})" style="margin-left:auto">✕</button>`:'';
+    const dtBg=ev.isBday?'background:linear-gradient(135deg,#f59e0b,#d97706)':'background:var(--r)';
+    return `<div class="ec"><div class="edt" style="${dtBg}"><div class="day">${d.getDate()}</div><div class="mon">${MES[d.getMonth()]}</div></div><div class="ei" style="flex:1"><h4>${ev.titulo}</h4><p>${ev.desc||''}</p></div>${del}</div>`;
+  }).join('');
+  document.getElementById('s-ev').innerHTML=`<div class="sh"><h2>📅 <em>Eventos</em> y Fechas</h2>${addBtn}</div>${sb}${list||'<p style="color:var(--mu)">Sin eventos.</p>'}`;
+}
+
+// ——— EL EQUIPO ———
+function rEq(){
+  const cards=OPS.map((m,i)=>{
+    const c=COLS[m.ci%COLS.length],in2=ini(m.nombre);
+    const bd=m.bday?`<div class="tc-bday">🎂 ${m.bday}</div>`:'';
+    return `<div class="tc" style="animation-delay:${(i*.28)%2.4}s"><div class="avr"><div class="avc" style="background:${c}">${in2}</div></div><div class="tcnm">${m.nombre}</div><div class="tcrl">${m.rol}</div>${bd}</div>`;
+  }).join('');
+  document.getElementById('s-eq').innerHTML=`<div class="sh"><h2>👥 <em>El Equipo</em> — Frávega ATC</h2></div><div class="g3">${cards}</div>`;
+}
+
+// ——— MODAL ———
+function omod(type,id=null){
+  mAct=type;mId=id;
+  const mt=document.getElementById('mtit'),mb=document.getElementById('mbdy');
+  const fi=(lbl,cnt)=>`<div class="fi"><label>${lbl}</label>${cnt}</div>`;
+  const ip=(id,ph,tp='text')=>`<input id="${id}" type="${tp}" placeholder="${ph}">`;
+  if(type==='nov'){mt.textContent='📢 Nueva Novedad';mb.innerHTML=fi('Título',ip('m1','Título del comunicado'))+fi('Contenido','<textarea id="m2" placeholder="Escribí el comunicado..."></textarea>');}
+  else if(type==='ev'){mt.textContent='📅 Nuevo Evento';mb.innerHTML=fi('Título',ip('m1','Nombre del evento'))+fi('Fecha',ip('m2','','date'))+fi('Descripción',ip('m3','Descripción'));}
+  else if(type==='kpi-d'){
+    const op=OPS.find(o=>o.id===id.opId),dia=SEMANA.find(d=>d.id===id.dia),k=getK(id.opId,id.dia);
+    mt.textContent=`✏️ ${op.nombre} — ${dia.short}`;
+    mb.innerHTML=fi('📞 Llamadas Conectadas',`<input id="m-ll" type="number" min="0" value="${k?k.ll:''}" placeholder="0">`)+fi('⏱ Back Office / Supervisor (ej: 0:18:48)',`<input id="m-bo" placeholder="0:00:00" value="${k?k.bo:''}">`);
+  }
+  else if(type==='to-e'){
+    const op=OPS.find(o=>o.id===id);
+    mt.textContent=`✏️ Time Out semanal — ${op.nombre}`;
+    mb.innerHTML=fi('⚠️ Fichas Time Out sin tipificar (total semana)',`<input id="m-to" type="number" min="0" value="${D.to[id]!==undefined?D.to[id]:''}" placeholder="0">`);
+  }
+  document.getElementById('mov').classList.add('on');
+}
+function cmod(){document.getElementById('mov').classList.remove('on');mAct=null;mId=null;}
+
+async function smod(){
+  const now=new Date();
+  const fecha=`${String(now.getDate()).padStart(2,'0')}/${String(now.getMonth()+1).padStart(2,'0')}/${now.getFullYear()}`;
+  if(mAct==='nov'){
+    const t=gv('m1'),c=gv('m2');if(!t||!c)return alert('Completá todos los campos');
+    D.novs.unshift({id:Date.now(),titulo:t,cont:c,fecha});cmod();rNov();rIn();chime();toast('¡Novedad publicada!','📢');sv('novs');
+  }else if(mAct==='ev'){
+    const t=gv('m1'),f=gv('m2'),d=gv('m3');if(!t||!f)return alert('Completá título y fecha');
+    D.evs.push({id:Date.now(),titulo:t,desc:d,fecha:f});cmod();rEv();toast('Evento agregado ✓','📅');sv('evs');
+  }else if(mAct==='kpi-d'){
+    const ll=parseInt(gv('m-ll'))||0,bo=gv('m-bo')||'0:00:00';
+    let rec=D.k2.find(r=>r.opId===mId.opId&&r.dia===mId.dia);
+    if(rec){rec.ll=ll;rec.bo=bo;}else D.k2.push({id:Date.now(),opId:mId.opId,dia:mId.dia,bo,ll});
+    cmod();renderKpiTable();toast('Métricas guardadas ✓','✅');sv('k2');
+  }else if(mAct==='to-e'){
+    D.to[mId]=parseInt(gv('m-to'))||0;cmod();renderKpiTable();toast('Time Out actualizado ✓','✅');sv('to');
+  }
+}
+
+async function dNov(id){if(!confirm('¿Eliminar?'))return;D.novs=D.novs.filter(n=>n.id!==id);await sv('novs');rNov();rIn();}
+async function dEv(id){if(!confirm('¿Eliminar?'))return;D.evs=D.evs.filter(e=>e.id!==id);await sv('evs');rEv();}
+
+async function poll(){
+  if(sup)return;
+  try{const r=await window.storage.get('fjv4:novs',true);const novs=JSON.parse(r.value);
+    if(novs.length>lastN&&lastN>0){D.novs=novs;lastN=novs.length;chime();toast('¡Nueva novedad disponible!','📣');const ac=document.querySelector('.sec.on');if(ac)render(ac.id.replace('s-',''));}
+    else lastN=novs.length;
+  }catch{}
+}
+
+async function init(){await load();tick();setInterval(tick,30000);setInterval(poll,5000);rIn();}
+init();
+</script>
+</body>
+</html>
